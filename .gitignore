@@ -1,31 +1,84 @@
-# Built things
-_Debug/
-Compiled/
+# Общие системные файлы
+Thumbs.db
+.DS_Store
+*.lnk
 
-# AudioCache can be rebuilt from sources
-AudioCache/
+# Файлы IDE
+.vs/
+.vscode/
+.idea/
+*.swp
+*.swo
 
-# Lockfile
-_OpenInEditor.lock
+# Файлы сборки
+[Bb]in/
+[Oo]bj/
+out/
+build/
 
-# User settings
-Game.agf.user
-*.crm.user
+# Файлы отладки и релиза
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
 
-# Backups
-Game.agf.bak
-backup_acsprset.spr
+# Файлы пакетов
+packages/
+**/[Pp]ackages/*/
+*.nupkg
+**/packages/build/
 
-# Memory dumps
-*.dmp
+# Файлы пользователей
+*.user
+*.userosscache
+*.sln.docstates
 
-# Temporary files
-# temporarily created during sprite or room background compression
-~aclzw.tmp
-# temporary, main game data, before getting packed into exe
-game28.dta
-# temporary build of the game before being moved to Compiled/ folder
-*.exe
+# Файлы кэша
+_ReSharper.Cache/
 
-# Log files
-warnings.log
+# Файлы тестов
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+
+# Файлы резервных копий
+*.bak
+*.tmp
+*.cache
+
+# Файлы баз данных
+*.mdf
+*.ldf
+*.sdf
+
+# Файлы развертывания
+*.ps1
+*.cmd
+*.bat
+
+# Файлы логов
+*.log
+logs/
+
+# Файлы конфигурации (кроме основных)
+appsettings.*.json
+appsettings.*.yaml
+!appsettings.json
+
+# Файлы среды
+.env
+.env.local
+.env.*.local
+
+# Файлы покрытия кода
+coverage.xml
+coverage.json
+*.coverage
+*.coveragexml
+
+# Файлы Docker
+.dockerignore
