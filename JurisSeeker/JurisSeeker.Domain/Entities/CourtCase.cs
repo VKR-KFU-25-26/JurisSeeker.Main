@@ -89,6 +89,11 @@ public class CourtCase : BaseEntity
     public string? ThirdParties { get; set; } 
     
     /// <summary>
+    /// Представители (если есть)
+    /// </summary>
+    public string? Representatives { get; set; } = String.Empty;
+    
+    /// <summary>
     /// Дата поступления дела
     /// </summary>
     public DateTime? ReceivedDate { get; set; }
@@ -114,7 +119,27 @@ public class CourtCase : BaseEntity
     public CaseOutcome Outcome { get; set; } = CaseOutcome.Unknown;
     
     /// <summary>
+    /// Результат дела (например: "Заявление ВОЗВРАЩЕНО заявителю")
+    /// </summary>
+    public string CaseResult { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Дата начало 
+    /// </summary>
+    public DateTime StartDate { get; set; }
+    
+    /// <summary>
+    /// Судья
+    /// </summary>
+    public string? JudgeName { get; set; } = string.Empty;  
+    
+    /// <summary>
     /// Статьи по делу
     /// </summary>
-    public List<CaseArticle> Articles { get; set; } = [];
+    public ICollection<CaseArticle> Articles { get; set; } = [];
+    
+    /// <summary>
+    /// Движение дела
+    /// </summary>
+    public ICollection<CourtCaseMovement> Movements { get; set; } = [];
 }

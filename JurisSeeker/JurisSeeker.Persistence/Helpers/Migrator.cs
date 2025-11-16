@@ -9,7 +9,6 @@ namespace JurisSeeker.Persistence.Helpers;
 /// </summary>
 public class Migrator(
     ApplicationDbContext context
-   // ElasticSetupService elasticSetupService
    )
 {
     /// <summary>
@@ -20,7 +19,6 @@ public class Migrator(
         try
         {
             await context.Database.MigrateAsync().ConfigureAwait(false);
-            //await elasticSetupService.EnsureIndexExistsAsync(); 
         }
         catch (Exception e)
         {

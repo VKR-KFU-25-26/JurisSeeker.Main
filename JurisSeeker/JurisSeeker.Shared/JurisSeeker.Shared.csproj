@@ -7,7 +7,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Options\" />
+      <PackageReference Include="HotChocolate.Types" Version="15.1.10" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\JurisSeeker.Domain\JurisSeeker.Domain.csproj" />
     </ItemGroup>
 
 </Project>

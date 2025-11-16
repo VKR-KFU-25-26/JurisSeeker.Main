@@ -28,5 +28,6 @@ if (app.Environment.IsDevelopment())
 app.UseRouting();
 
 app.MapControllers();
+app.MapGraphQL("/graphql"); 
 
 app.Run();

@@ -1,12 +1,14 @@
-﻿namespace JurisSeeker.Core.Dto.Messages;
+﻿using JurisSeeker.Domain.Entities;
+
+namespace JurisSeeker.Core.Dto.Messages;
 
 /// <summary>
 /// Сырое дело, получаемое напрямую с сайта суда
 /// </summary>
 public class CourtCaseMessage
 {
-    // <summary>
-    /// 
+    /// <summary>
+    /// Первичная информация
     /// </summary>
     public string Title { get; set; } = null!;
     
@@ -14,6 +16,16 @@ public class CourtCaseMessage
     /// Ссылка из источника
     /// </summary>
     public string Link { get; set; } = null!;
+
+    /// <summary>
+    /// Дата начало 
+    /// </summary>
+    public DateTime StartDate { get; set; }
+    
+    /// <summary>
+    /// Движение дела (список событий)
+    /// </summary>
+    public List<CourtCaseMovement> CaseMovements { get; set; } = [];
     
     /// <summary>
     /// Номер дела
@@ -21,7 +33,7 @@ public class CourtCaseMessage
     public string CaseNumber { get; set; } = null!;
     
     /// <summary>
-    /// 
+    /// Тип дела
     /// </summary>
     public string CourtType { get; set; } = null!;
     
@@ -86,6 +98,11 @@ public class CourtCaseMessage
     public string ThirdParties { get; set; } = string.Empty;
     
     /// <summary>
+    /// Представители (если есть)
+    /// </summary>
+    public string? Representatives { get; set; } = string.Empty;
+    
+    /// <summary>
     /// Дата поступления дела
     /// </summary>
     public DateTime? ReceivedDate { get; set; }
@@ -94,6 +111,11 @@ public class CourtCaseMessage
     /// Категория дела
     /// </summary>
     public string CaseCategory { get; set; } = string.Empty;
+    
+    /// <summary>
+    /// Результат дела (например: "Заявление ВОЗВРАЩЕНО заявителю")
+    /// </summary>
+    public string CaseResult { get; set; } = string.Empty;
     
     /// <summary>
     /// Подкатегория дела
@@ -108,7 +130,7 @@ public class CourtCaseMessage
     /// <summary>
     /// Судья
     /// </summary>
-    public string? JudgeName { get; set; } = string.Empty;  
+    public string? JudgeName { get; set; } = string.Empty;
     
     public DateTime Timestamp { get; set; } = DateTime.UtcNow;
 }

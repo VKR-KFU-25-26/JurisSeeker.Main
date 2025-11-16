@@ -77,6 +77,10 @@ namespace JurisSeeker.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("CaseResult")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("CaseSubcategory")
                         .IsRequired()
                         .HasColumnType("text");
@@ -112,6 +116,9 @@ namespace JurisSeeker.Persistence.Migrations
                     b.Property<bool>("HasDecision")
                         .HasColumnType("boolean");
 
+                    b.Property<string>("JudgeName")
+                        .HasColumnType("text");
+
                     b.Property<string>("Link")
                         .IsRequired()
                         .HasColumnType("text");
@@ -133,6 +140,12 @@ namespace JurisSeeker.Persistence.Migrations
                     b.Property<string>("Region")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<string>("Representatives")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Subject")
                         .IsRequired()
@@ -157,6 +170,40 @@ namespace JurisSeeker.Persistence.Migrations
                     b.HasIndex("Region");
 
                     b.ToTable("CourtCases");
+                });
+
+            modelBuilder.Entity("JurisSeeker.Domain.Entities.CourtCaseMovement", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Basis")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("CourtCaseId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime?>("EventDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("EventName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("EventResult")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CourtCaseId");
+
+                    b.ToTable("CourtCaseMovements");
                 });
 
             modelBuilder.Entity("JurisSeeker.Domain.Entities.User", b =>
@@ -196,9 +243,22 @@ namespace JurisSeeker.Persistence.Migrations
                     b.Navigation("CourtCase");
                 });
 
+            modelBuilder.Entity("JurisSeeker.Domain.Entities.CourtCaseMovement", b =>
+                {
+                    b.HasOne("JurisSeeker.Domain.Entities.CourtCase", "CourtCase")
+                        .WithMany("Movements")
+                        .HasForeignKey("CourtCaseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CourtCase");
+                });
+
             modelBuilder.Entity("JurisSeeker.Domain.Entities.CourtCase", b =>
                 {
                     b.Navigation("Articles");
+
+                    b.Navigation("Movements");
                 });
 #pragma warning restore 612, 618
         }

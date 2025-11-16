@@ -19,6 +19,11 @@ public class CourtCaseConfigurations : IEntityTypeConfiguration<CourtCase>
             .HasForeignKey(x => x.CourtCaseId)
             .OnDelete(DeleteBehavior.Cascade);
         
+        builder.HasMany(x => x.Movements)
+            .WithOne(x => x.CourtCase)
+            .HasForeignKey(x => x.CourtCaseId)
+            .OnDelete(DeleteBehavior.Cascade);
+        
         builder.HasIndex(c => c.CaseNumber);
         builder.HasIndex(c => c.Outcome);
         builder.HasIndex(c => c.Region);

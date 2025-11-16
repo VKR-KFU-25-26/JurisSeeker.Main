@@ -1,4 +1,4 @@
-﻿namespace JurisSeeker.Infrastructure.Options;
+﻿namespace JurisSeeker.Shared.Options;
 
 public class KafkaOptions
 {

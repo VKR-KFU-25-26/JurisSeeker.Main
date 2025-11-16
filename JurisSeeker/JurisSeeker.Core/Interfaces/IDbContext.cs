@@ -25,6 +25,11 @@ public interface IDbContext
     public DbSet<CaseArticle> CaseArticles { get; set; }
     
     /// <summary>
+    /// Движение дела
+    /// </summary>
+    public DbSet<CourtCaseMovement> CourtCaseMovements { get; set; }
+    
+    /// <summary>
     /// Начать транзакцию
     /// </summary>
     Task<IDbContextTransaction> BeginTransactionAsync(CancellationToken cancellationToken = default);

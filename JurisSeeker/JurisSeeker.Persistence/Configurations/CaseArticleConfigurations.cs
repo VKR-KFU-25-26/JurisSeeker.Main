@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace JurisSeeker.Persistence.Configurations;
 
-public class CaseArticleConfiguration : IEntityTypeConfiguration<CaseArticle>
+public class CaseArticleConfigurations : IEntityTypeConfiguration<CaseArticle>
 {
     public void Configure(EntityTypeBuilder<CaseArticle> builder)
     {

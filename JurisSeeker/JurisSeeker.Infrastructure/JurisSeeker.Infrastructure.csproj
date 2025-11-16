@@ -8,10 +8,11 @@
 
     <ItemGroup>
       <PackageReference Include="Confluent.Kafka" Version="2.11.1" />
-      <PackageReference Include="Elastic.Clients.Elasticsearch" Version="9.2.0" />
-      <PackageReference Include="Elastic.Transport" Version="0.10.1" />
+      <PackageReference Include="Elastic.Clients.Elasticsearch" Version="8.14.8" />
       <PackageReference Include="HotChocolate.AspNetCore" Version="15.1.10" />
+      <PackageReference Include="HotChocolate.Data" Version="15.1.10" />
       <PackageReference Include="HotChocolate.Data.EntityFramework" Version="15.1.10" />
+      <PackageReference Include="HotChocolate.Types" Version="15.1.10" />
       <PackageReference Include="HotChocolate.Types.Analyzers" Version="15.1.10" />
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.10" />
     </ItemGroup>
@@ -19,6 +20,11 @@
     <ItemGroup>
       <ProjectReference Include="..\JurisSeeker.Core\JurisSeeker.Core.csproj" />
       <ProjectReference Include="..\JurisSeeker.Domain\JurisSeeker.Domain.csproj" />
+      <ProjectReference Include="..\JurisSeeker.Shared\JurisSeeker.Shared.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="GraphQL\Mutations\" />
     </ItemGroup>
 
 </Project>

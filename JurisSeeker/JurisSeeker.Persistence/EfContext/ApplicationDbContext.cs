@@ -13,6 +13,7 @@ public class ApplicationDbContext : DbContext, IDbContext
 
     public DbSet<CourtCase> CourtCases { get; set; }
     public DbSet<CaseArticle> CaseArticles { get; set; }
+    public DbSet<CourtCaseMovement> CourtCaseMovements { get; set; }
     public DbSet<User> Users { get; set; }
 
     public async Task<IDbContextTransaction> BeginTransactionAsync(CancellationToken cancellationToken = default) 

@@ -1,10 +1,11 @@
 ﻿using Elastic.Clients.Elasticsearch;
-using Elastic.Transport;
 using JurisSeeker.Core.Interfaces;
 using JurisSeeker.Infrastructure.BackgroundServices;
-using JurisSeeker.Infrastructure.Options;
-using JurisSeeker.Infrastructure.Services;
+using JurisSeeker.Infrastructure.GraphQL.Queries;
+using JurisSeeker.Infrastructure.Services.Auth;
 using JurisSeeker.Infrastructure.Services.Elastic;
+using JurisSeeker.Shared.GraphQL;
+using JurisSeeker.Shared.Options;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -14,10 +15,14 @@ public static class Entry
 {
     public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddScoped<ICourtCaseProcessingService, CourtCaseProcessingService>();
+        
+        services
+            .AddScoped<IPasswordService, PasswordService>()
+            .AddScoped<IJwtService, JwtService>();
         
         services.AddKafka(configuration);
-        //services.AddElasticSearch(configuration);
+        services.AddGraphQl();
+        services.AddElasticSearch(configuration);
     }
 
     private static void AddKafka(this IServiceCollection services, IConfiguration configuration)
@@ -27,25 +32,41 @@ public static class Entry
         services.AddHostedService<KafkaCourtCaseConsumer>();
     }
 
+    private static void AddGraphQl(this IServiceCollection services)
+    {
+        services
+            .AddGraphQLServer()
+            .AddQueryType(m => m.Name(OperationTypeNames.Query))
+            //.AddMutationType(m => m.Name(OperationTypeNames.Mutation))
+            .AddType<UserTypes>()
+            .AddTypeExtension<UserQuery>()
+            .AddTypeExtension<CourtCaseQuery>()
+            .AddProjections()
+            .AddFiltering()
+            .AddSorting()
+            .AddErrorFilter(error => error.WithMessage(error.Exception?.Message ?? "Unknown error"))
+            .BindRuntimeType<Guid, IdType>();
+    }
+
     private static void AddElasticSearch(this IServiceCollection services, IConfiguration configuration)
     {
-        services.Configure<ElasticSearchOptions>(configuration.GetSection("ElasticSearchOptions"));
-        
         var section = configuration.GetSection("Elasticsearch");
         services.Configure<ElasticSearchOptions>(section);
 
         var options = section.Get<ElasticSearchOptions>()!;
-
-        var settings = new ElasticsearchClientSettings(new Uri(options.Url))
-            .Authentication(new BasicAuthentication(options.Username, options.Password))
-            .DefaultIndex(options.IndexName)
-            .PrettyJson();
-
-        var client = new ElasticsearchClient(settings);
-
-        services.AddSingleton(client);
         
-        services.AddScoped<ElasticSetupService>();
-        services.AddScoped<IElasticCourtCaseService, ElasticCourtCaseService>();
+        services.AddSingleton<ElasticsearchClient>(_ =>
+        {
+            var settings = new ElasticsearchClientSettings(new
+                    Uri(options.Url))
+                .DefaultIndex(options.DefaultIndex)
+                .EnableDebugMode()
+                .PrettyJson()
+                .RequestTimeout(TimeSpan.FromMinutes(2));
+
+            return new ElasticsearchClient(settings);
+        });
+
+        services.AddScoped<IElasticsearchContext, ElasticsearchContext>();
     }
 }
