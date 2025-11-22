@@ -1,4 +1,4 @@
-﻿using JurisSeeker.Core.Interfaces;
+﻿using JurisSeeker.Application.Interfaces;
 using JurisSeeker.Persistence.EfContext;
 using JurisSeeker.Persistence.Helpers;
 using Microsoft.EntityFrameworkCore;

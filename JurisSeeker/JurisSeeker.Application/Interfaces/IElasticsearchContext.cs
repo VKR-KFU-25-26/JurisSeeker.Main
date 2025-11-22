@@ -1,6 +1,7 @@
-﻿using JurisSeeker.Domain.ElasticEntity;
+﻿
+using JurisSeeker.Domain.ElasticEntity;
 
-namespace JurisSeeker.Core.Interfaces;
+namespace JurisSeeker.Application.Interfaces;
 
 /// <summary>
 /// Сервис для работы с эластиком
@@ -20,13 +21,14 @@ public interface IElasticsearchContext
     /// <param name="documents">Сущности делов</param>
     /// <param name="cancellationToken">Токен отмены</param>
     Task BulkIndexCourtDecisionDocumentsAsync(List<CourtDecisionDocument> documents, CancellationToken cancellationToken = default);
-    
+
     /// <summary>
     /// Получить записть из эластика
     /// </summary>
-    /// <param name="id">Id сущности из постгреса</param>
+    /// <param name="courtCaseId">Id сущности из постгреса</param>
     /// <param name="cancellationToken">Токен отмены</param>
-    Task<CourtDecisionDocument?> GetCourtDecisionAsync(Guid id, CancellationToken cancellationToken = default);
+    Task<CourtDecisionDocument?> GetCourtDecisionByIdAsync(string courtCaseId,
+        CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Получить все документы из индекса
@@ -34,4 +36,14 @@ public interface IElasticsearchContext
     /// <param name="cancellationToken"></param>
     /// <returns>Список всех документов CourtDecisionDocument</returns>
     Task<List<CourtDecisionDocument>> GetAllCourtDecisionsAsync(CancellationToken cancellationToken = default);
+    
+    
+    Task<List<CourtDecisionDocument>> FullTextSearchAsync(string query, int size = 50, CancellationToken cancellationToken = default);
+
+    Task<List<CourtDecisionDocument>> SearchByRegionAsync(string region, int size = 50, CancellationToken cancellationToken = default);
+
+    Task<List<CourtDecisionDocument>> SearchByRegionAndTextAsync(string region, string query, int size = 50, CancellationToken cancellationToken = default);
+
+    Task<List<CourtDecisionDocument>> SearchByDateRangeAsync(DateTime from, DateTime to, int size = 100, CancellationToken cancellationToken = default);
+
 }

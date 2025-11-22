@@ -1,5 +1,4 @@
-﻿using JurisSeeker.Infrastructure.Services.Elastic;
-using JurisSeeker.Persistence.EfContext;
+﻿using JurisSeeker.Persistence.EfContext;
 using Microsoft.EntityFrameworkCore;
 
 namespace JurisSeeker.Persistence.Helpers;

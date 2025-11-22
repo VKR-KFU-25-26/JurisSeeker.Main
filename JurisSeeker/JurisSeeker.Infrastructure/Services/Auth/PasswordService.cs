@@ -1,4 +1,4 @@
-﻿using JurisSeeker.Core.Interfaces;
+﻿using JurisSeeker.Application.Interfaces;
 
 namespace JurisSeeker.Infrastructure.Services.Auth;
 

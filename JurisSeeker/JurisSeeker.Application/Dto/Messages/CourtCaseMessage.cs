@@ -1,6 +1,6 @@
 ﻿using JurisSeeker.Domain.Entities;
 
-namespace JurisSeeker.Core.Dto.Messages;
+namespace JurisSeeker.Application.Dto.Messages;
 
 /// <summary>
 /// Сырое дело, получаемое напрямую с сайта суда

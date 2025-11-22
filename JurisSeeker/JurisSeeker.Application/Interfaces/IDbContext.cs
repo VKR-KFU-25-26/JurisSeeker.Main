@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 
-namespace JurisSeeker.Core.Interfaces;
+namespace JurisSeeker.Application.Interfaces;
 
 /// <summary>
 /// Интерфейс контекста базы

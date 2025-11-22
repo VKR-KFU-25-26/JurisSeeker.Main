@@ -25,7 +25,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\JurisSeeker.Core\JurisSeeker.Core.csproj" />
+      <ProjectReference Include="..\JurisSeeker.Application\JurisSeeker.Application.csproj" />
       <ProjectReference Include="..\JurisSeeker.Infrastructure\JurisSeeker.Infrastructure.csproj" />
     </ItemGroup>
 

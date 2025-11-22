@@ -1,9 +1,9 @@
 ﻿using Elastic.Clients.Elasticsearch;
-using JurisSeeker.Core.Interfaces;
-using JurisSeeker.Infrastructure.BackgroundServices;
+using JurisSeeker.Application.Interfaces;
+using JurisSeeker.Infrastructure.Elastic;
 using JurisSeeker.Infrastructure.GraphQL.Queries;
+using JurisSeeker.Infrastructure.KafkaMessaging;
 using JurisSeeker.Infrastructure.Services.Auth;
-using JurisSeeker.Infrastructure.Services.Elastic;
 using JurisSeeker.Shared.GraphQL;
 using JurisSeeker.Shared.Options;
 using Microsoft.Extensions.Configuration;

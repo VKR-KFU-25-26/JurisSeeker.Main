@@ -1,4 +1,4 @@
-﻿using JurisSeeker.Core.Interfaces;
+﻿using JurisSeeker.Application.Interfaces;
 using JurisSeeker.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;

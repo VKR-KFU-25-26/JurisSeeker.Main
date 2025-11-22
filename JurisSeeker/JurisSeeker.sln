@@ -8,7 +8,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JurisSeeker.Shared", "Juris
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JurisSeeker.Infrastructure", "JurisSeeker.Infrastructure\JurisSeeker.Infrastructure.csproj", "{A621FE7A-A300-4BBC-8F2F-288C23524B73}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JurisSeeker.Core", "JurisSeeker.Core\JurisSeeker.Core.csproj", "{BEC38E54-BA98-42B0-8557-29E8C3951AFB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JurisSeeker.Application", "JurisSeeker.Application\JurisSeeker.Application.csproj", "{BEC38E54-BA98-42B0-8557-29E8C3951AFB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JurisSeeker.Persistence", "JurisSeeker.Persistence\JurisSeeker.Persistence.csproj", "{F0F1B358-B10C-4340-AC4C-C411D2D5DC24}"
 EndProject

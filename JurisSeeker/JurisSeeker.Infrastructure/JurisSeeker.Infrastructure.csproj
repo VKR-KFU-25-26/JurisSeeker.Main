@@ -18,7 +18,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\JurisSeeker.Core\JurisSeeker.Core.csproj" />
+      <ProjectReference Include="..\JurisSeeker.Application\JurisSeeker.Application.csproj" />
       <ProjectReference Include="..\JurisSeeker.Domain\JurisSeeker.Domain.csproj" />
       <ProjectReference Include="..\JurisSeeker.Shared\JurisSeeker.Shared.csproj" />
     </ItemGroup>
