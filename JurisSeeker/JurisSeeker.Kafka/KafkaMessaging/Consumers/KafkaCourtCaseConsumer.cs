@@ -1,15 +1,16 @@
 ﻿using System.Text.Json;
 using Confluent.Kafka;
 using JurisSeeker.Application.Dto.Messages;
-using JurisSeeker.Application.Features.CourtCase.Command;
+using JurisSeeker.Application.Features.CourtCaseFromParser.Command;
+using JurisSeeker.Application.Features.CourtDecisionInMlService;
 using JurisSeeker.Shared.Options;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 
-namespace JurisSeeker.Infrastructure.KafkaMessaging;
+namespace JurisSeeker.Kafka.KafkaMessaging.Consumers;
 
 public class KafkaCourtCaseConsumer : BackgroundService
 {
@@ -44,15 +45,14 @@ public class KafkaCourtCaseConsumer : BackgroundService
         };
 
         _consumer = new ConsumerBuilder<string, string>(config)
-            .SetErrorHandler((_, e) => _logger.LogError("Kafka error: {Reason}", e.Reason))
+            .SetErrorHandler((_, e) => _logger.LogError("JurisSeeker.Kafka error: {Reason}", e.Reason))
             .Build();
     }
     
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         await Task.Delay(5000, stoppingToken);
-
-        _logger.LogInformation("Kafka consumer started. Listening to topic: {Topic}", _kafkaOptions.Topic);
+        _logger.LogInformation("JurisSeeker.Kafka consumer started. Listening to topic: {Topic}", _kafkaOptions.Topic);
 
         _consumer.Subscribe(_kafkaOptions.Topic);
 
@@ -77,11 +77,29 @@ public class KafkaCourtCaseConsumer : BackgroundService
                     
                     using var scope = _serviceProvider.CreateScope();
                     var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
-                    await mediator.Send(new ProcessCourtCaseCommand(message), stoppingToken);
+                    var id = await mediator.Send(new ProcessCourtCaseCommand(message), stoppingToken);
+
+                    if (id != Guid.Empty && message.HasDecision && !string.IsNullOrWhiteSpace(message.DecisionContent))
+                    {
+                        var mlResult = await mediator.Send(new ProcessCourtDecisionCommand(new CourtDecisionMessage
+                        {
+                            Id = id.ToString(),
+                            Decision = message.DecisionContent
+                        }), stoppingToken);
+    
+                        if (mlResult)
+                        {
+                            _logger.LogInformation("Дело: {Id} отправлено в ML сервис и сохранено в базу", id);
+                        }
+                        else
+                        {
+                            _logger.LogWarning("Дело: {Id} сохранено в базу, но не отправлено в ML сервис", id);
+                        }
+                    }
                 }
                 catch (ConsumeException ex)
                 {
-                    _logger.LogError(ex, "Ошибка при чтении сообщения из Kafka");
+                    _logger.LogError(ex, "Ошибка при чтении сообщения из JurisSeeker.Kafka");
                 }
                 catch (Exception ex)
                 {

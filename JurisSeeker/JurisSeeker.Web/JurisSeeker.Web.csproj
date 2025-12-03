@@ -4,6 +4,7 @@
         <TargetFramework>net8.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     </PropertyGroup>
 
     <ItemGroup>
@@ -14,11 +15,14 @@
 
     <ItemGroup>
       <ProjectReference Include="..\JurisSeeker.Infrastructure\JurisSeeker.Infrastructure.csproj" />
+      <ProjectReference Include="..\JurisSeeker.Kafka\JurisSeeker.Kafka.csproj" />
       <ProjectReference Include="..\JurisSeeker.Persistence\JurisSeeker.Persistence.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Controllers\" />
+      <Content Include="..\.dockerignore">
+        <Link>.dockerignore</Link>
+      </Content>
     </ItemGroup>
 
 </Project>

@@ -1,6 +1,7 @@
 using System.Text;
 using JurisSeeker.Application;
 using JurisSeeker.Infrastructure;
+using JurisSeeker.Kafka;
 using JurisSeeker.Persistence;
 using JurisSeeker.Persistence.Helpers;
 
@@ -17,6 +18,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddApplicationLayer();
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddPersistence(builder.Configuration);
+builder.Services.AddKafka(builder.Configuration);
 
 // Add background service
 //builder.Services.AddHostedService<ApplicationLifecycleService>();

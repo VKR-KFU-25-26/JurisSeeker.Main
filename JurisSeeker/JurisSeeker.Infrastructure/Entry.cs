@@ -2,7 +2,6 @@
 using JurisSeeker.Application.Interfaces;
 using JurisSeeker.Infrastructure.Elastic;
 using JurisSeeker.Infrastructure.GraphQL.Queries;
-using JurisSeeker.Infrastructure.KafkaMessaging;
 using JurisSeeker.Infrastructure.Services.Auth;
 using JurisSeeker.Shared.GraphQL;
 using JurisSeeker.Shared.Options;
@@ -20,18 +19,10 @@ public static class Entry
             .AddScoped<IPasswordService, PasswordService>()
             .AddScoped<IJwtService, JwtService>();
         
-        services.AddKafka(configuration);
         services.AddGraphQl();
         services.AddElasticSearch(configuration);
     }
-
-    private static void AddKafka(this IServiceCollection services, IConfiguration configuration)
-    {
-        services.Configure<KafkaOptions>(configuration.GetSection("KafkaOptions"));
-        
-        services.AddHostedService<KafkaCourtCaseConsumer>();
-    }
-
+    
     private static void AddGraphQl(this IServiceCollection services)
     {
         services

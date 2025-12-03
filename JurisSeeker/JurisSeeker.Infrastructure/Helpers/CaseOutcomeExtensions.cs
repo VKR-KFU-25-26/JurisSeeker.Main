@@ -17,4 +17,18 @@ public static class CaseOutcomeExtensions
             _ => "Неизвестно"
         };
     }
+    
+    public static CaseOutcome ToDisplayEnum(this string outcome)
+    {
+        return outcome switch
+        {
+            "Неизвестно" => CaseOutcome.Unknown,
+            "Истец выиграл" => CaseOutcome.PlaintiffWon,
+            "Ответчик выиграл" => CaseOutcome.DefendantWon,
+            "Мировое соглашение" => CaseOutcome.Settlement,
+            "Дело прекращено" => CaseOutcome.CaseDismissed,
+            "Частично удовлетворено" => CaseOutcome.PartiallyGranted,
+            _ => CaseOutcome.Unknown
+        };
+    }
 }
