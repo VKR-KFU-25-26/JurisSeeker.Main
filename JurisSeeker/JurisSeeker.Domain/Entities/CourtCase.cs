@@ -74,12 +74,12 @@ public class CourtCase : BaseEntity
     public string Region { get; set; } = null!;
     
     /// <summary>
-    /// Истец (отдельное поле)
+    /// Истец
     /// </summary>
     public string Plaintiff { get; set; } = null!;
     
     /// <summary>
-    /// Ответчик (отдельное поле)
+    /// Ответчик
     /// </summary>
     public string Defendant { get; set; } = null!;
     
@@ -94,7 +94,7 @@ public class CourtCase : BaseEntity
     public string? Representatives { get; set; } = String.Empty;
     
     /// <summary>
-    /// Дата поступления дела
+    /// Дата рассмотрения
     /// </summary>
     public DateTime? ReceivedDate { get; set; }
     
@@ -124,7 +124,7 @@ public class CourtCase : BaseEntity
     public string CaseResult { get; set; } = string.Empty;
 
     /// <summary>
-    /// Дата начало 
+    /// Дата начала
     /// </summary>
     public DateTime StartDate { get; set; }
     

@@ -63,11 +63,6 @@ public class CourtCaseMessage
     public string DecisionLink { get; set; } = string.Empty;
     
     /// <summary>
-    /// Дата решения
-    /// </summary>
-    public DateTime? DecisionDate { get; set; }
-    
-    /// <summary>
     /// Тип решения (мотивированное, определение и т.д.)
     /// </summary>
     public string DecisionType { get; set; } = string.Empty;

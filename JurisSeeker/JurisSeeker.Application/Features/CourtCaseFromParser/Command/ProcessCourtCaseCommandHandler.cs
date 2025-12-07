@@ -53,7 +53,6 @@ public class ProcessCourtCaseCommandHandler(
                     Subject = message.Subject,
                     HasDecision = message.HasDecision,
                     DecisionLink = message.DecisionLink,
-                    DecisionDate = message.DecisionDate,
                     DecisionType = message.DecisionType,
                     FederalDistrict = message.FederalDistrict,
                     Region = message.Region,
@@ -92,7 +91,6 @@ public class ProcessCourtCaseCommandHandler(
                             .SetProperty(x => x.Subject, message.Subject)
                             .SetProperty(x => x.HasDecision, message.HasDecision)
                             .SetProperty(x => x.DecisionLink, message.DecisionLink)
-                            .SetProperty(x => x.DecisionDate, message.DecisionDate)
                             .SetProperty(x => x.DecisionType, message.DecisionType)
                             .SetProperty(x => x.FederalDistrict, message.FederalDistrict)
                             .SetProperty(x => x.Region, message.Region)
@@ -152,7 +150,6 @@ public class ProcessCourtCaseCommandHandler(
                 CourtCaseId = id,
                 CaseNumber = message.CaseNumber,
                 Region = message.Region,
-                DecisionDate = message.DecisionDate,
                 DecisionType = message.DecisionType,
                 DecisionContent = message.DecisionContent ?? string.Empty,
                 Link = message.Link,
