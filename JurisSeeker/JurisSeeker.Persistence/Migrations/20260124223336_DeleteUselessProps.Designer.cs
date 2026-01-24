@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace JurisSeeker.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20251207224642_Deleted prop DecisionDate")]
-    partial class DeletedpropDecisionDate
+    [Migration("20260124223336_DeleteUselessProps")]
+    partial class DeleteUselessProps
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -95,9 +95,6 @@ namespace JurisSeeker.Persistence.Migrations
                     b.Property<string>("DecisionContent")
                         .HasColumnType("text");
 
-                    b.Property<DateTime?>("DecisionDate")
-                        .HasColumnType("timestamp with time zone");
-
                     b.Property<string>("DecisionLink")
                         .HasColumnType("text");
 
@@ -105,10 +102,6 @@ namespace JurisSeeker.Persistence.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Defendant")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -149,10 +142,6 @@ namespace JurisSeeker.Persistence.Migrations
 
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Subject")
-                        .IsRequired()
-                        .HasColumnType("text");
 
                     b.Property<string>("ThirdParties")
                         .HasColumnType("text");

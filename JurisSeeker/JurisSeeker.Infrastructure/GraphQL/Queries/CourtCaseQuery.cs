@@ -23,6 +23,18 @@ public class CourtCaseQuery
     [UseSorting]
     [GraphQLDescription("Получить Дела")]
     public IQueryable<CourtCase> GetCourtCases([Service] IDbContext context) => context.CourtCases.AsNoTracking();
+    
+    [GraphQLDescription("Получить дела по IDs")]
+    [UseFiltering]
+    [UseSorting]
+    public IQueryable<CourtCase> GetCourtCasesByIds(
+        [Service] IDbContext context,
+        [ID] Guid[] ids)
+    {
+        return context.CourtCases
+            .Where(x => ids.Contains(x.Id))
+            .AsNoTracking();
+    }
 
     /// <summary>
     /// Получить дело по Id из Postgres

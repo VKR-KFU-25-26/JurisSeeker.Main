@@ -27,21 +27,11 @@ public class CourtCase : BaseEntity
     /// Тип дела
     /// </summary>
     public string CourtType { get; set; } = null!;
-    
-    /// <summary>
-    /// Описание дела
-    /// </summary>
-    public string Description { get; set; } = null!;
 
     /// <summary>
     /// Ссылка на оригинальный сайт суда
     /// </summary>
     public string OriginalCaseLink { get; set; } = null!;
-
-    /// <summary>
-    /// Суть спора (например: "о несостоятельности (банкротстве) физических лиц")
-    /// </summary>
-    public string Subject { get; set; } = null!;
 
     /// <summary>
     /// Есть ли решение
@@ -52,11 +42,6 @@ public class CourtCase : BaseEntity
     /// Ссылка на решение
     /// </summary>
     public string? DecisionLink { get; set; }
-    
-    /// <summary>
-    /// Дата решения
-    /// </summary>
-    public DateTime? DecisionDate { get; set; }
     
     /// <summary>
     /// Тип решения (мотивированное, определение и т.д.)

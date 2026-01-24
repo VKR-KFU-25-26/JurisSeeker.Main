@@ -36,7 +36,12 @@ public static class Entry
             .AddFiltering()
             .AddSorting()
             .AddErrorFilter(error => error.WithMessage(error.Exception?.Message ?? "Unknown error"))
-            .BindRuntimeType<Guid, IdType>();
+            .BindRuntimeType<Guid, IdType>()
+            .ModifyRequestOptions(opt =>
+            {
+                opt.IncludeExceptionDetails = true;
+                opt.ExecutionTimeout = TimeSpan.FromMinutes(2);
+            });
     }
 
     private static void AddElasticSearch(this IServiceCollection services, IConfiguration configuration)

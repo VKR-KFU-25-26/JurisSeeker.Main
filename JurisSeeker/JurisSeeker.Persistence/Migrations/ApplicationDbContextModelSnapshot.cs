@@ -92,9 +92,6 @@ namespace JurisSeeker.Persistence.Migrations
                     b.Property<string>("DecisionContent")
                         .HasColumnType("text");
 
-                    b.Property<DateTime?>("DecisionDate")
-                        .HasColumnType("timestamp with time zone");
-
                     b.Property<string>("DecisionLink")
                         .HasColumnType("text");
 
@@ -102,10 +99,6 @@ namespace JurisSeeker.Persistence.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Defendant")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -146,10 +139,6 @@ namespace JurisSeeker.Persistence.Migrations
 
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Subject")
-                        .IsRequired()
-                        .HasColumnType("text");
 
                     b.Property<string>("ThirdParties")
                         .HasColumnType("text");

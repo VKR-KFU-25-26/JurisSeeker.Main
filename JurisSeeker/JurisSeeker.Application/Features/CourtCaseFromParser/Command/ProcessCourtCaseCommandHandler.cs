@@ -48,9 +48,7 @@ public class ProcessCourtCaseCommandHandler(
                     Title = message.Title,
                     Link = message.Link,
                     CourtType = message.CourtType,
-                    Description = message.Description,
                     OriginalCaseLink = message.OriginalCaseLink,
-                    Subject = message.Subject,
                     HasDecision = message.HasDecision,
                     DecisionLink = message.DecisionLink,
                     DecisionType = message.DecisionType,
@@ -86,9 +84,7 @@ public class ProcessCourtCaseCommandHandler(
                             .SetProperty(x => x.Title, message.Title)
                             .SetProperty(x => x.Link, message.Link)
                             .SetProperty(x => x.CourtType, message.CourtType)
-                            .SetProperty(x => x.Description, message.Description)
                             .SetProperty(x => x.OriginalCaseLink, message.OriginalCaseLink)
-                            .SetProperty(x => x.Subject, message.Subject)
                             .SetProperty(x => x.HasDecision, message.HasDecision)
                             .SetProperty(x => x.DecisionLink, message.DecisionLink)
                             .SetProperty(x => x.DecisionType, message.DecisionType)
