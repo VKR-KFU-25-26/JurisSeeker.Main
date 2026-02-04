@@ -54,7 +54,7 @@ public class KafkaCourtMlProducer : IKafkaCourtMlProducer
             
             var kafkaMessage = new Message<string, string>
             {
-                Key = message.Id,
+                Key = message.Id.ToString(),
                 Value = jsonMessage,
                 Headers = new Headers
                 {

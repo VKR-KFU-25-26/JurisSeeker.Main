@@ -83,7 +83,7 @@ public class KafkaCourtCaseConsumer : BackgroundService
                     {
                         var mlResult = await mediator.Send(new ProcessCourtDecisionCommand(new CourtDecisionMessage
                         {
-                            Id = id.ToString(),
+                            Id = id,
                             Decision = message.DecisionContent
                         }), stoppingToken);
     

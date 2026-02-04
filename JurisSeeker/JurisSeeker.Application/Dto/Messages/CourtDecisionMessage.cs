@@ -8,7 +8,7 @@ public class CourtDecisionMessage
     /// <summary>
     /// Id дела
     /// </summary>
-    public required string Id { get; set; }
+    public required Guid Id { get; set; }
     
     /// <summary>
     /// Решение
