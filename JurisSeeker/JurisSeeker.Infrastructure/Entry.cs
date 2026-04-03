@@ -3,6 +3,7 @@ using JurisSeeker.Application.Interfaces;
 using JurisSeeker.Infrastructure.Elastic;
 using JurisSeeker.Infrastructure.GraphQL.Queries;
 using JurisSeeker.Infrastructure.Services.Auth;
+using JurisSeeker.Infrastructure.Services.Statistic;
 using JurisSeeker.Shared.GraphQL;
 using JurisSeeker.Shared.Options;
 using Microsoft.Extensions.Configuration;
@@ -18,6 +19,8 @@ public static class Entry
         services
             .AddScoped<IPasswordService, PasswordService>()
             .AddScoped<IJwtService, JwtService>();
+
+        services.AddHostedService<StatisticUpdatedWorker>();
         
         services.AddGraphQl();
         services.AddElasticSearch(configuration);
@@ -32,6 +35,7 @@ public static class Entry
             .AddType<UserTypes>()
             .AddTypeExtension<UserQuery>()
             .AddTypeExtension<CourtCaseQuery>()
+            .AddTypeExtension<StatisticQuery>()
             .AddProjections()
             .AddFiltering()
             .AddSorting()

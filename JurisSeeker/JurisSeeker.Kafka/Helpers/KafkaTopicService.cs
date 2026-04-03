@@ -11,7 +11,6 @@ namespace JurisSeeker.Kafka.Helpers;
 public class KafkaTopicService : IKafkaTopicService
 {
     private readonly IAdminClient _adminClient;
-    private readonly KafkaOptions _kafkaOptions;
     private readonly ILogger<KafkaTopicService> _logger;
     private readonly HashSet<string> _createdTopics = [];
 
@@ -19,12 +18,12 @@ public class KafkaTopicService : IKafkaTopicService
         IOptions<KafkaOptions> kafkaOptions,
         ILogger<KafkaTopicService> logger)
     {
-        _kafkaOptions = kafkaOptions.Value;
+        var kafkaOptions1 = kafkaOptions.Value;
         _logger = logger;
 
         var config = new AdminClientConfig
         {
-            BootstrapServers = _kafkaOptions.BootstrapServers
+            BootstrapServers = kafkaOptions1.BootstrapServers
         };
 
         _adminClient = new AdminClientBuilder(config).Build();
@@ -76,7 +75,7 @@ public class KafkaTopicService : IKafkaTopicService
         }
     }
     
-    public Task<bool> TopicExistsAsync(string topicName)
+    private Task<bool> TopicExistsAsync(string topicName)
     {
         try
         {
@@ -90,7 +89,7 @@ public class KafkaTopicService : IKafkaTopicService
         }
     }
 
-    public async Task EnsureRequiredTopicsAsync()
+    private async Task EnsureRequiredTopicsAsync()
     {
         var requiredTopics = new[]
         {

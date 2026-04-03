@@ -21,38 +21,25 @@ public class SaveFromMlServiceCommandHandler : IRequestHandler<SaveResultFromMlS
     public async Task Handle(SaveResultFromMlServiceCommand request, CancellationToken cancellationToken)
     {
         var message = request.MlProcessingResult;
-
-        Console.WriteLine("DATA:");
-        Console.WriteLine(message);
-        Console.WriteLine(message.Id);
-
-        Console.WriteLine(message.Articles);
-        foreach (var t in message.Articles)
-        {
-            Console.WriteLine(t);
-        }
-
-        Console.WriteLine(message.Winner);
-        Console.WriteLine("DATA END:");
-
+        
         try
         {
             if (!Guid.TryParse(message.Id, out var caseId))
                 throw new ArgumentNullException();
     
-            // 1. Обновляем Outcome
+            // Обновляем Outcome
             await _context.CourtCases
                 .Where(x => x.Id == caseId)
                 .ExecuteUpdateAsync(setters => setters
                         .SetProperty(x => x.Outcome, ToDisplayEnum(message.Winner)),
                     cancellationToken);
     
-            // 2. Удаляем старые статьи
+            // Удаляем старые статьи
             await _context.CaseArticles
                 .Where(x => x.CourtCaseId == caseId)
                 .ExecuteDeleteAsync(cancellationToken);
     
-            // 3. Добавляем новые статьи
+            // Добавляем новые статьи
             var newArticles = message.Articles
                 .Where(article => !string.IsNullOrWhiteSpace(article))
                 .Select(article => new CaseArticle

@@ -1,4 +1,5 @@
 ﻿using JurisSeeker.Domain.Entities;
+using JurisSeeker.Domain.Entities.NotMapped;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 
@@ -29,6 +30,14 @@ public interface IDbContext
     /// </summary>
     public DbSet<CourtCaseMovement> CourtCaseMovements { get; set; }
     
+    public DbSet<TotalCasesStats> TotalCasesStats { get; set; } 
+    
+    public DbSet<OutcomeStats> OutcomeStats { get; set; }
+    
+    public DbSet<DecisionStats> DecisionStats { get; set; }
+    
+    public DbSet<CasesByRegionStats> CasesByRegionStats { get; set; } 
+    
     /// <summary>
     /// Начать транзакцию
     /// </summary>
@@ -42,4 +51,19 @@ public interface IDbContext
     public Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
         
     DbSet<T> Set<T>() where T : class;
+    
+    /// <summary>
+    /// Выполнить SQL команду (не возвращает результат)
+    /// </summary>
+    Task<int> ExecuteSqlRawAsync(string sql, CancellationToken cancellationToken = default);
+    
+    /// <summary>
+    /// Выполнить SQL команду с параметрами (не возвращает результат)
+    /// </summary>
+    Task<int> ExecuteSqlRawAsync(string sql, object[] parameters, CancellationToken cancellationToken = default);
+    
+    /// <summary>
+    /// Выполнить SQL запрос и вернуть результат
+    /// </summary>
+    IQueryable<T> SqlQueryRaw<T>(string sql, params object[] parameters) where T : class;
 }

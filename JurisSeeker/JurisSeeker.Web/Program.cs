@@ -85,10 +85,10 @@ app.MapGraphQL();
 
 // Startup log
 app.Logger.LogInformation("=== JurisSeeker Application Started ===");
-app.Logger.LogInformation("✅ Health check: http://localhost:5233/health");
-app.Logger.LogInformation("🔮 GraphQL: http://localhost:5233/graphql");
-app.Logger.LogInformation("📚 Swagger: http://localhost:5233/swagger");
-app.Logger.LogInformation("🌐 Frontend: http://localhost:3000");
-app.Logger.LogInformation("🚀 Application is ready and waiting for requests...");
+app.Logger.LogInformation("Health check: http://localhost:5233/health");
+app.Logger.LogInformation("GraphQL: http://localhost:5233/graphql");
+app.Logger.LogInformation("Swagger: http://localhost:5233/swagger");
+app.Logger.LogInformation("Frontend: http://localhost:3000");
+app.Logger.LogInformation("Application is ready and waiting for requests...");
 
 app.Run();
