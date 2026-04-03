@@ -1,4 +1,5 @@
-﻿using JurisSeeker.Application.Dto.Messages;
+﻿using HtmlAgilityPack;
+using JurisSeeker.Application.Dto.Messages;
 using JurisSeeker.Application.Interfaces;
 using JurisSeeker.Domain.Common.Enums;
 using JurisSeeker.Domain.Entities;
@@ -62,7 +63,8 @@ public class ProcessCourtCaseCommandHandler(
                     ReceivedDate = message.ReceivedDate,
                     CaseCategory = message.CaseCategory,
                     CaseSubcategory = message.CaseSubcategory,
-                    DecisionContent = message.DecisionContent,
+                    DecisionContentHtml = message.DecisionContent,
+                    DecisionContent = message.DecisionContent != null ? CleanHtml(message.DecisionContent) : string.Empty,
                     StartDate = message.StartDate,
                     JudgeName = message.JudgeName
                 };
@@ -98,7 +100,8 @@ public class ProcessCourtCaseCommandHandler(
                             .SetProperty(x => x.ReceivedDate, message.ReceivedDate)
                             .SetProperty(x => x.CaseCategory, message.CaseCategory)
                             .SetProperty(x => x.CaseSubcategory, message.CaseSubcategory)
-                            .SetProperty(x => x.DecisionContent, message.DecisionContent)
+                            .SetProperty(x => x.DecisionContentHtml, message.DecisionContent)
+                            .SetProperty(x => x.DecisionContent, CleanHtml(message.DecisionContent!))
                             .SetProperty(x => x.StartDate, message.StartDate)
                             .SetProperty(x => x.JudgeName, message.JudgeName),
                         cancellationToken
@@ -147,7 +150,7 @@ public class ProcessCourtCaseCommandHandler(
                 CaseNumber = message.CaseNumber,
                 Region = message.Region,
                 DecisionType = message.DecisionType,
-                DecisionContent = message.DecisionContent ?? string.Empty,
+                DecisionContent = CleanHtml(message.DecisionContent!),
                 Link = message.Link,
                 CourtType = message.CourtType,
                 OriginalCaseLink = message.OriginalCaseLink,
@@ -187,5 +190,15 @@ public class ProcessCourtCaseCommandHandler(
         {
             logger.LogError(ex, "Ошибка индексации в Elasticsearch для {CaseNumber}", message.CaseNumber);
         }
+    }
+    
+    private string CleanHtml(string html)
+    {
+        if (string.IsNullOrWhiteSpace(html))
+            return string.Empty;
+
+        var doc = new HtmlDocument();
+        doc.LoadHtml(html);
+        return doc.DocumentNode.InnerText.Trim(); 
     }
 }

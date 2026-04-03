@@ -92,6 +92,9 @@ namespace JurisSeeker.Persistence.Migrations
                     b.Property<string>("DecisionContent")
                         .HasColumnType("text");
 
+                    b.Property<string>("DecisionContentHtml")
+                        .HasColumnType("text");
+
                     b.Property<string>("DecisionLink")
                         .HasColumnType("text");
 
@@ -193,6 +196,148 @@ namespace JurisSeeker.Persistence.Migrations
                     b.HasIndex("CourtCaseId");
 
                     b.ToTable("CourtCaseMovements");
+                });
+
+            modelBuilder.Entity("JurisSeeker.Domain.Entities.NotMapped.CasesByRegionStats", b =>
+                {
+                    b.Property<DateTime>("CalculatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("CalculatedAt");
+
+                    b.Property<int>("CasesInRegion")
+                        .HasColumnType("integer")
+                        .HasColumnName("CasesInRegion");
+
+                    b.Property<string>("FederalDistrict")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("FederalDistrict");
+
+                    b.Property<decimal>("PercentageOfTotal")
+                        .HasColumnType("numeric")
+                        .HasColumnName("PercentageOfTotal");
+
+                    b.Property<string>("Region")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("Region");
+
+                    b.ToTable((string)null);
+
+                    b.ToView("CasesByRegionStats", (string)null);
+                });
+
+            modelBuilder.Entity("JurisSeeker.Domain.Entities.NotMapped.DecisionStats", b =>
+                {
+                    b.Property<DateTime>("CalculatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("CalculatedAt");
+
+                    b.Property<int>("CasesWithDecision")
+                        .HasColumnType("integer")
+                        .HasColumnName("CasesWithDecision");
+
+                    b.Property<decimal>("DecisionRate")
+                        .HasColumnType("numeric")
+                        .HasColumnName("DecisionRate");
+
+                    b.Property<string>("FederalDistrict")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("FederalDistrict");
+
+                    b.Property<string>("Region")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("Region");
+
+                    b.Property<int>("TotalCases")
+                        .HasColumnType("integer")
+                        .HasColumnName("TotalCases");
+
+                    b.ToTable((string)null);
+
+                    b.ToView("DecisionStats", (string)null);
+                });
+
+            modelBuilder.Entity("JurisSeeker.Domain.Entities.NotMapped.OutcomeStats", b =>
+                {
+                    b.Property<DateTime>("CalculatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("CalculatedAt");
+
+                    b.Property<int>("CasesWithKnownOutcome")
+                        .HasColumnType("integer")
+                        .HasColumnName("CasesWithKnownOutcome");
+
+                    b.Property<decimal>("DefendantWinPercentage")
+                        .HasColumnType("numeric")
+                        .HasColumnName("DefendantWinPercentage");
+
+                    b.Property<int>("DefendantWins")
+                        .HasColumnType("integer")
+                        .HasColumnName("DefendantWins");
+
+                    b.Property<int>("Dismissed")
+                        .HasColumnType("integer")
+                        .HasColumnName("Dismissed");
+
+                    b.Property<decimal>("DismissedPercentage")
+                        .HasColumnType("numeric")
+                        .HasColumnName("DismissedPercentage");
+
+                    b.Property<string>("FederalDistrict")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("FederalDistrict");
+
+                    b.Property<decimal>("PlaintiffWinPercentage")
+                        .HasColumnType("numeric")
+                        .HasColumnName("PlaintiffWinPercentage");
+
+                    b.Property<int>("PlaintiffWins")
+                        .HasColumnType("integer")
+                        .HasColumnName("PlaintiffWins");
+
+                    b.Property<string>("Region")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("Region");
+
+                    b.Property<decimal>("SettlementPercentage")
+                        .HasColumnType("numeric")
+                        .HasColumnName("SettlementPercentage");
+
+                    b.Property<int>("Settlements")
+                        .HasColumnType("integer")
+                        .HasColumnName("Settlements");
+
+                    b.ToTable((string)null);
+
+                    b.ToView("OutcomeStats", (string)null);
+                });
+
+            modelBuilder.Entity("JurisSeeker.Domain.Entities.NotMapped.TotalCasesStats", b =>
+                {
+                    b.Property<DateTime>("CalculatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("CalculatedAt");
+
+                    b.Property<decimal>("DecisionPercentage")
+                        .HasColumnType("numeric")
+                        .HasColumnName("DecisionPercentage");
+
+                    b.Property<int>("TotalCases")
+                        .HasColumnType("integer")
+                        .HasColumnName("TotalCases");
+
+                    b.Property<int>("TotalCasesWithDecision")
+                        .HasColumnType("integer")
+                        .HasColumnName("TotalCasesWithDecision");
+
+                    b.ToTable((string)null);
+
+                    b.ToView("TotalCasesStats", (string)null);
                 });
 
             modelBuilder.Entity("JurisSeeker.Domain.Entities.User", b =>

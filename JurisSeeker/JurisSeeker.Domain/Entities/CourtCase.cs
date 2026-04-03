@@ -99,6 +99,11 @@ public class CourtCase : BaseEntity
     public string? DecisionContent { get; set; }
     
     /// <summary>
+    /// Решение с html
+    /// </summary>
+    public string? DecisionContentHtml { get; set; }
+    
+    /// <summary>
     /// Исход дела - кто выиграл
     /// </summary>
     public CaseOutcome Outcome { get; set; } = CaseOutcome.Unknown;
