@@ -9,9 +9,8 @@ namespace JurisSeeker.Infrastructure.Services.Statistic;
 public class StatisticUpdatedWorker(IServiceProvider services, ILogger<StatisticUpdatedWorker> logger)
     : BackgroundService
 {
-    private readonly TimeSpan _refreshInterval = TimeSpan.FromHours(1);
+    private readonly TimeSpan _refreshInterval = TimeSpan.FromMinutes(15);
     private bool _isFirstRun = true;
-
     
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
@@ -58,7 +57,7 @@ public class StatisticUpdatedWorker(IServiceProvider services, ILogger<Statistic
         {
             var viewName = $"\"{viewType.Name}\"";
             logger.LogDebug("Refreshing view: {ViewName}", viewName);
-            await context.ExecuteSqlRawAsync($"REFRESH MATERIALIZED VIEW CONCURRENTLY {viewName};", cancellationToken);
+            await context.ExecuteSqlRawAsync($"REFRESH MATERIALIZED VIEW {viewName};", cancellationToken);
         }
     }
 }

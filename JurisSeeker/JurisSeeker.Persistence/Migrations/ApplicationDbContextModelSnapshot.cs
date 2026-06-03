@@ -340,32 +340,6 @@ namespace JurisSeeker.Persistence.Migrations
                     b.ToView("TotalCasesStats", (string)null);
                 });
 
-            modelBuilder.Entity("JurisSeeker.Domain.Entities.User", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Users");
-                });
-
             modelBuilder.Entity("JurisSeeker.Domain.Entities.CaseArticle", b =>
                 {
                     b.HasOne("JurisSeeker.Domain.Entities.CourtCase", "CourtCase")

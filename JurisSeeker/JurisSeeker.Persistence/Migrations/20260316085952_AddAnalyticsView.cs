@@ -22,9 +22,11 @@ namespace JurisSeeker.Persistence.Migrations
                 SELECT 
                     COUNT(*) AS "TotalCases",
                     COUNT(CASE WHEN "HasDecision" = true THEN 1 END) AS "TotalCasesWithDecision",
-                    ROUND(
-                        COUNT(CASE WHEN "HasDecision" = true THEN 1 END)::numeric / 
-                        COUNT(*)::numeric * 100, 2
+                    COALESCE(
+                        ROUND(
+                            COUNT(CASE WHEN "HasDecision" = true THEN 1 END)::numeric / 
+                            NULLIF(COUNT(*), 0) * 100, 2
+                        ), 0
                     ) AS "DecisionPercentage",
                     NOW() AS "CalculatedAt"
                 FROM "CourtCases";
@@ -53,8 +55,11 @@ namespace JurisSeeker.Persistence.Migrations
                     "Region",
                     "FederalDistrict",
                     COUNT(*) AS "CasesInRegion",
-                    ROUND(
-                        COUNT(*)::numeric / (SELECT COUNT(*) FROM "CourtCases")::numeric * 100, 2
+                    COALESCE(
+                        ROUND(
+                            COUNT(*)::numeric / 
+                            NULLIF((SELECT COUNT(*) FROM "CourtCases"), 0) * 100, 2
+                        ), 0
                     ) AS "PercentageOfTotal",
                     NOW() AS "CalculatedAt"
                 FROM "CourtCases"
@@ -85,9 +90,11 @@ namespace JurisSeeker.Persistence.Migrations
                     "Region",
                     COUNT(*) AS "TotalCases",
                     COUNT(CASE WHEN "HasDecision" = true THEN 1 END) AS "CasesWithDecision",
-                    ROUND(
-                        COUNT(CASE WHEN "HasDecision" = true THEN 1 END)::numeric / 
-                        COUNT(*)::numeric * 100, 2
+                    COALESCE(
+                        ROUND(
+                            COUNT(CASE WHEN "HasDecision" = true THEN 1 END)::numeric / 
+                            NULLIF(COUNT(*), 0) * 100, 2
+                        ), 0
                     ) AS "DecisionRate",
                     NOW() AS "CalculatedAt"
                 FROM "CourtCases"
@@ -161,7 +168,6 @@ namespace JurisSeeker.Persistence.Migrations
             #endregion
         }
         
-
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {

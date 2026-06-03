@@ -1,6 +1,9 @@
 ﻿
 namespace JurisSeeker.Shared.Kafka.Models;
 
+/// <summary>
+/// Настройка кафки
+/// </summary>
 public class KafkaTopicConfig
 {
     public string Name { get; set; } = string.Empty;

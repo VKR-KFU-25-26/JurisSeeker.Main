@@ -16,11 +16,6 @@ public interface IDbContext
     public DbSet<CourtCase> CourtCases { get; set; }
     
     /// <summary>
-    /// Пользователь
-    /// </summary>
-    public DbSet<User> Users { get; set; }
-    
-    /// <summary>
     /// Статьи
     /// </summary>
     public DbSet<CaseArticle> CaseArticles { get; set; }

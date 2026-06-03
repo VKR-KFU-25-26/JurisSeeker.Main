@@ -1,9 +1,7 @@
 ﻿using HtmlAgilityPack;
 using JurisSeeker.Application.Dto.Messages;
 using JurisSeeker.Application.Interfaces;
-using JurisSeeker.Domain.Common.Enums;
 using JurisSeeker.Domain.Entities;
-using JurisSeeker.Domain.ElasticEntity;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -12,7 +10,6 @@ namespace JurisSeeker.Application.Features.CourtCaseFromParser.Command;
 
 public class ProcessCourtCaseCommandHandler(
     IDbContext db,
-    IElasticsearchContext elastic,
     ILogger<ProcessCourtCaseCommandHandler> logger)
     : IRequestHandler<ProcessCourtCaseCommand, Guid>
 {
@@ -24,9 +21,7 @@ public class ProcessCourtCaseCommandHandler(
 
         if (id == Guid.Empty)
             return Guid.Empty;
-
-        await UpsertElasticAsync(id, message, cancellationToken);
-
+        
         return id;
     }
 
@@ -137,58 +132,6 @@ public class ProcessCourtCaseCommandHandler(
         {
             logger.LogError(ex, "Ошибка в UpsertPostgresAsync для дела {CaseNumber}", message.CaseNumber);
             return Guid.Empty;
-        }
-    }
-    
-    private async Task UpsertElasticAsync(Guid id, CourtCaseMessage message, CancellationToken token)
-    {
-        try
-        {
-            var doc = new CourtDecisionDocument
-            {
-                CourtCaseId = id,
-                CaseNumber = message.CaseNumber,
-                Region = message.Region,
-                DecisionType = message.DecisionType,
-                DecisionContent = CleanHtml(message.DecisionContent!),
-                Link = message.Link,
-                CourtType = message.CourtType,
-                OriginalCaseLink = message.OriginalCaseLink,
-                HasDecision = message.HasDecision,
-                DecisionLink = message.DecisionLink,
-                FederalDistrict = message.FederalDistrict,
-                Plaintiff = message.Plaintiff,
-                Defendant = message.Defendant,
-                ThirdParties = message.ThirdParties,
-                Representatives = message.Representatives,
-                JudgeName = message.JudgeName,
-                ReceivedDate = message.ReceivedDate,
-                StartDate = message.StartDate,
-                CaseCategory = message.CaseCategory,
-                CaseSubcategory = message.CaseSubcategory,
-                Outcome = CaseOutcome.Unknown,
-                CaseResult = message.CaseResult,
-                Articles = [],
-                Movements = message.CaseMovements.Select(x => new ElasticCourtCaseMovement
-                {
-                    EventName = x.EventName,
-                    EventResult = x.EventResult,
-                    Basis = x.Basis,
-                    EventDate = x.EventDate
-                }).ToList(),
-                Timestamp = message.Timestamp
-            };
-
-            await elastic.IndexCourtDecisionDocumentAsync(doc, token);
-
-            logger.LogInformation(
-                "Дело {CaseNumber} успешно проиндексировано в Elasticsearch",
-                message.CaseNumber
-            );
-        }
-        catch (Exception ex)
-        {
-            logger.LogError(ex, "Ошибка индексации в Elasticsearch для {CaseNumber}", message.CaseNumber);
         }
     }
     

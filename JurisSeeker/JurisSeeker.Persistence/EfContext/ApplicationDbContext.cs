@@ -15,7 +15,6 @@ public class ApplicationDbContext : DbContext, IDbContext
     public DbSet<CourtCase> CourtCases { get; set; } = null!;
     public DbSet<CaseArticle> CaseArticles { get; set; } = null!;
     public DbSet<CourtCaseMovement> CourtCaseMovements { get; set; } = null!;
-    public DbSet<User> Users { get; set; } = null!;
     
     // view
     public DbSet<TotalCasesStats> TotalCasesStats { get; set; } = null!;
