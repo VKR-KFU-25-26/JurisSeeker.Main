@@ -138,20 +138,6 @@ namespace JurisSeeker.Persistence.Migrations
                             NULLIF(COUNT(CASE WHEN "Outcome" != 0 THEN 1 END)::numeric, 0) * 100, 2
                         ), 0
                     ) as "DefendantWinPercentage",
-                    COUNT(CASE WHEN "Outcome" = 3 THEN 1 END) as "Settlements",
-                    COALESCE(
-                        ROUND(
-                            COUNT(CASE WHEN "Outcome" = 3 THEN 1 END)::numeric / 
-                            NULLIF(COUNT(CASE WHEN "Outcome" != 0 THEN 1 END)::numeric, 0) * 100, 2
-                        ), 0
-                    ) as "SettlementPercentage",
-                    COUNT(CASE WHEN "Outcome" = 4 THEN 1 END) as "Dismissed",
-                    COALESCE(
-                        ROUND(
-                            COUNT(CASE WHEN "Outcome" = 4 THEN 1 END)::numeric / 
-                            NULLIF(COUNT(CASE WHEN "Outcome" != 0 THEN 1 END)::numeric, 0) * 100, 2
-                        ), 0
-                    ) as "DismissedPercentage",
                     NOW() as "CalculatedAt"
                 FROM "CourtCases"
                 GROUP BY "FederalDistrict", "Region";

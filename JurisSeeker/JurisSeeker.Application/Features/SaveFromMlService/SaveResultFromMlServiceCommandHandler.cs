@@ -33,28 +33,6 @@ public class SaveFromMlServiceCommandHandler : IRequestHandler<SaveResultFromMlS
                 .ExecuteUpdateAsync(setters => setters
                         .SetProperty(x => x.Outcome, ToDisplayEnum(message.Winner)),
                     cancellationToken);
-    
-            // Удаляем старые статьи
-            await _context.CaseArticles
-                .Where(x => x.CourtCaseId == caseId)
-                .ExecuteDeleteAsync(cancellationToken);
-    
-            // Добавляем новые статьи
-            var newArticles = message.Articles
-                .Where(article => !string.IsNullOrWhiteSpace(article))
-                .Select(article => new CaseArticle
-                {
-                    Id = Guid.NewGuid(),
-                    ArticleNumber = article,
-                    CourtCaseId = caseId
-                })
-                .ToList();
-    
-            if (newArticles.Count != 0)
-            {
-                await _context.CaseArticles.AddRangeAsync(newArticles, cancellationToken);
-                await _context.SaveChangesAsync(cancellationToken);
-            }
             
             _logger.LogInformation($"Успешно приняли данные с Ml сервиса и обновили данные по делу c Id: {message.Id}");
         }
@@ -71,9 +49,6 @@ public class SaveFromMlServiceCommandHandler : IRequestHandler<SaveResultFromMlS
         {
             "истец" => CaseOutcome.PlaintiffWon,
             "ответчик" => CaseOutcome.DefendantWon,
-            "частично удовлетворено" => CaseOutcome.PartiallyGranted,
-            "мировое соглашение" => CaseOutcome.Settlement,
-            "дело прекращено" => CaseOutcome.CaseDismissed,
             _ => CaseOutcome.Unknown
         };
     }

@@ -75,23 +75,9 @@ public class CourtCaseQuery
     [GraphQLDescription("Получить дело по Id")]
     public async Task<CourtCase?> GetCourtCaseById([Service] IDbContext context, Guid id, CancellationToken cancellationToken)
         => await context.CourtCases
-            .Include(x => x.Articles)
             .Include(x => x.Movements)
             .FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
     
-    /// <summary>
-    /// Получить статьи по делу
-    /// </summary>
-    /// <param name="context">Контекст данных</param>
-    /// <param name="courtCaseId">Id дела</param>
-    /// <returns>Cтатьи по делу</returns>
-    [UsePaging]
-    [UseProjection]
-    [UseFiltering]
-    [UseSorting]
-    [GraphQLDescription("Получить статьи дела")]
-    public IQueryable<CaseArticle> GetCaseArticles(IDbContext context, Guid courtCaseId)
-        => context.CaseArticles.Where(a => a.CourtCaseId == courtCaseId);
 
     /// <summary>
     /// Получить движение дела 

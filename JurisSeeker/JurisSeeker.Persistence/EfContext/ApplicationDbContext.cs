@@ -13,7 +13,6 @@ public class ApplicationDbContext : DbContext, IDbContext
     { }
 
     public DbSet<CourtCase> CourtCases { get; set; } = null!;
-    public DbSet<CaseArticle> CaseArticles { get; set; } = null!;
     public DbSet<CourtCaseMovement> CourtCaseMovements { get; set; } = null!;
     
     // view
@@ -103,10 +102,6 @@ public class ApplicationDbContext : DbContext, IDbContext
             entity.Property(e => e.PlaintiffWinPercentage).HasColumnName("PlaintiffWinPercentage");
             entity.Property(e => e.DefendantWins).HasColumnName("DefendantWins");
             entity.Property(e => e.DefendantWinPercentage).HasColumnName("DefendantWinPercentage");
-            entity.Property(e => e.Settlements).HasColumnName("Settlements");
-            entity.Property(e => e.SettlementPercentage).HasColumnName("SettlementPercentage");
-            entity.Property(e => e.Dismissed).HasColumnName("Dismissed");
-            entity.Property(e => e.DismissedPercentage).HasColumnName("DismissedPercentage");
             entity.Property(e => e.CalculatedAt).HasColumnName("CalculatedAt");
         });
     }

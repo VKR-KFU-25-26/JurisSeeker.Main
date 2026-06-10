@@ -22,47 +22,6 @@ namespace JurisSeeker.Persistence.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("JurisSeeker.Domain.Entities.CaseArticle", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("ArticleNumber")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<Guid>("CourtCaseId")
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("text");
-
-                    b.Property<int>("Outcome")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Part")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Point")
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ArticleNumber");
-
-                    b.HasIndex("CourtCaseId");
-
-                    b.HasIndex("Outcome");
-
-                    b.HasIndex("ArticleNumber", "Outcome");
-
-                    b.ToTable("CaseArticles");
-                });
-
             modelBuilder.Entity("JurisSeeker.Domain.Entities.CourtCase", b =>
                 {
                     b.Property<Guid>("Id")
@@ -278,14 +237,6 @@ namespace JurisSeeker.Persistence.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("DefendantWins");
 
-                    b.Property<int>("Dismissed")
-                        .HasColumnType("integer")
-                        .HasColumnName("Dismissed");
-
-                    b.Property<decimal>("DismissedPercentage")
-                        .HasColumnType("numeric")
-                        .HasColumnName("DismissedPercentage");
-
                     b.Property<string>("FederalDistrict")
                         .IsRequired()
                         .HasColumnType("text")
@@ -303,14 +254,6 @@ namespace JurisSeeker.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("Region");
-
-                    b.Property<decimal>("SettlementPercentage")
-                        .HasColumnType("numeric")
-                        .HasColumnName("SettlementPercentage");
-
-                    b.Property<int>("Settlements")
-                        .HasColumnType("integer")
-                        .HasColumnName("Settlements");
 
                     b.ToTable((string)null);
 
@@ -340,17 +283,6 @@ namespace JurisSeeker.Persistence.Migrations
                     b.ToView("TotalCasesStats", (string)null);
                 });
 
-            modelBuilder.Entity("JurisSeeker.Domain.Entities.CaseArticle", b =>
-                {
-                    b.HasOne("JurisSeeker.Domain.Entities.CourtCase", "CourtCase")
-                        .WithMany("Articles")
-                        .HasForeignKey("CourtCaseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("CourtCase");
-                });
-
             modelBuilder.Entity("JurisSeeker.Domain.Entities.CourtCaseMovement", b =>
                 {
                     b.HasOne("JurisSeeker.Domain.Entities.CourtCase", "CourtCase")
@@ -364,8 +296,6 @@ namespace JurisSeeker.Persistence.Migrations
 
             modelBuilder.Entity("JurisSeeker.Domain.Entities.CourtCase", b =>
                 {
-                    b.Navigation("Articles");
-
                     b.Navigation("Movements");
                 });
 #pragma warning restore 612, 618

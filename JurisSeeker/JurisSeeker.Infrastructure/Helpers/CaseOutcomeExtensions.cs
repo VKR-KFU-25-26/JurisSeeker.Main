@@ -11,9 +11,6 @@ public static class CaseOutcomeExtensions
             CaseOutcome.Unknown => "Неизвестно",
             CaseOutcome.PlaintiffWon => "Истец выиграл",
             CaseOutcome.DefendantWon => "Ответчик выиграл",
-            CaseOutcome.Settlement => "Мировое соглашение",
-            CaseOutcome.CaseDismissed => "Дело прекращено",
-            CaseOutcome.PartiallyGranted => "Частично удовлетворено",
             _ => "Неизвестно"
         };
     }
@@ -25,9 +22,6 @@ public static class CaseOutcomeExtensions
             "Неизвестно" => CaseOutcome.Unknown,
             "Истец выиграл" => CaseOutcome.PlaintiffWon,
             "Ответчик выиграл" => CaseOutcome.DefendantWon,
-            "Мировое соглашение" => CaseOutcome.Settlement,
-            "Дело прекращено" => CaseOutcome.CaseDismissed,
-            "Частично удовлетворено" => CaseOutcome.PartiallyGranted,
             _ => CaseOutcome.Unknown
         };
     }

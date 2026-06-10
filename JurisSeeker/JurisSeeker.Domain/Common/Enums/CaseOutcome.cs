@@ -18,20 +18,5 @@ public enum CaseOutcome
     /// <summary>
     /// Ответчик выиграл
     /// </summary>
-    DefendantWon = 2,
-    
-    /// <summary>
-    /// Мировое соглашение
-    /// </summary>
-    Settlement = 3,
-    
-    /// <summary>
-    /// Дело прекращено
-    /// </summary>
-    CaseDismissed = 4,
-    
-    /// <summary>
-    /// Частично удовлетворено (обе стороны частично выиграли)
-    /// </summary>
-    PartiallyGranted = 5
+    DefendantWon = 2
 }

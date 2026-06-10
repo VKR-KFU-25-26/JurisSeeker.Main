@@ -14,11 +14,6 @@ public class CourtCaseConfigurations : IEntityTypeConfiguration<CourtCase>
         
         builder.Property(x => x.CaseNumber).IsRequired();
         
-        builder.HasMany(x => x.Articles)
-            .WithOne(x => x.CourtCase)
-            .HasForeignKey(x => x.CourtCaseId)
-            .OnDelete(DeleteBehavior.Cascade);
-        
         builder.HasMany(x => x.Movements)
             .WithOne(x => x.CourtCase)
             .HasForeignKey(x => x.CourtCaseId)

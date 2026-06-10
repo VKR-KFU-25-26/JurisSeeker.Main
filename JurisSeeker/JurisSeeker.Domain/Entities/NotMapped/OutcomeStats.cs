@@ -29,15 +29,4 @@ public class OutcomeStats : AnalyticsBase
     public int DefendantWins { get; set; }
     public decimal DefendantWinPercentage { get; set; }
     
-    /// <summary>
-    /// Мировые соглашения
-    /// </summary>
-    public int Settlements { get; set; }
-    public decimal SettlementPercentage { get; set; }
-    
-    /// <summary>
-    /// Прекращенные дела
-    /// </summary>
-    public int Dismissed { get; set; }
-    public decimal DismissedPercentage { get; set; }
 }

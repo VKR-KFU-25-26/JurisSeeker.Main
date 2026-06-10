@@ -124,11 +124,6 @@ public class CourtCase : BaseEntity
     public string? JudgeName { get; set; } = string.Empty;  
     
     /// <summary>
-    /// Статьи по делу
-    /// </summary>
-    public ICollection<CaseArticle> Articles { get; set; } = [];
-    
-    /// <summary>
     /// Движение дела
     /// </summary>
     public ICollection<CourtCaseMovement> Movements { get; set; } = [];
