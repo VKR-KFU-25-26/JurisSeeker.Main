@@ -7,6 +7,9 @@ using Microsoft.Extensions.Options;
 
 namespace JurisSeeker.Persistence.Helpers;
 
+/// <summary>
+/// Мигратор, для миграций в базу
+/// </summary>
 public class Migrator(
     ApplicationDbContext context,
     IKafkaTopicService topicService,

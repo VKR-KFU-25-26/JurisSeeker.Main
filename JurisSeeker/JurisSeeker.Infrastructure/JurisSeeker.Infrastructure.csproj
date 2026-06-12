@@ -23,8 +23,4 @@
       <ProjectReference Include="..\JurisSeeker.Shared\JurisSeeker.Shared.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="GraphQL\Mutations\" />
-    </ItemGroup>
-
 </Project>

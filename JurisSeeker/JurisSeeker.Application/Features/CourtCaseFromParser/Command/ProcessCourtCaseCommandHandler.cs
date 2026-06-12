@@ -8,6 +8,11 @@ using Microsoft.Extensions.Logging;
 
 namespace JurisSeeker.Application.Features.CourtCaseFromParser.Command;
 
+/// <summary>
+/// Команда для сохранения дел в базу
+/// </summary>
+/// <param name="db"></param>
+/// <param name="logger"></param>
 public class ProcessCourtCaseCommandHandler(
     IDbContext db,
     ILogger<ProcessCourtCaseCommandHandler> logger)
@@ -105,7 +110,6 @@ public class ProcessCourtCaseCommandHandler(
                 logger.LogInformation("Дело {CaseNumber} обновлено", message.CaseNumber);
             }
 
-            // === Movements ===
             await db.CourtCaseMovements
                 .Where(m => m.CourtCaseId == caseId)
                 .ExecuteDeleteAsync(cancellationToken);

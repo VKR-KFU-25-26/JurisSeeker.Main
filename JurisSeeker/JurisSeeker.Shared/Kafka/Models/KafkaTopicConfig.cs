@@ -2,7 +2,7 @@
 namespace JurisSeeker.Shared.Kafka.Models;
 
 /// <summary>
-/// Настройка кафки
+/// Настройка топиков кафки
 /// </summary>
 public class KafkaTopicConfig
 {

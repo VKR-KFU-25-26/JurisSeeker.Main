@@ -8,6 +8,9 @@ using Microsoft.Extensions.Options;
 
 namespace JurisSeeker.Kafka.KafkaMessaging.Producers;
 
+/// <summary>
+/// Продюсер, для отправки сообщений в ml сервис
+/// </summary>
 public class KafkaCourtMlProducer : IKafkaCourtMlProducer
 {
     private readonly ILogger<KafkaCourtMlProducer> _logger;

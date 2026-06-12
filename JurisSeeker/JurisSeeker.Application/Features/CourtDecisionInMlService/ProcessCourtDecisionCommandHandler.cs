@@ -6,6 +6,9 @@ using Microsoft.Extensions.Logging;
 
 namespace JurisSeeker.Application.Features.CourtDecisionInMlService;
 
+/// <summary>
+/// Команда для отправки дела в ml сервис
+/// </summary>
 public class CourtDecisionCommandHandler : IRequestHandler<ProcessCourtDecisionCommand, bool>
 {
     private readonly ILogger<CourtDecisionCommandHandler> _logger;

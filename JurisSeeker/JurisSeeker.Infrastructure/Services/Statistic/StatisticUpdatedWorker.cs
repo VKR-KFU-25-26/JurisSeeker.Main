@@ -6,6 +6,9 @@ using Microsoft.Extensions.Logging;
 
 namespace JurisSeeker.Infrastructure.Services.Statistic;
 
+/// <summary>
+/// Сервис для обновления статистики 
+/// </summary>
 public class StatisticUpdatedWorker(IServiceProvider services, ILogger<StatisticUpdatedWorker> logger)
     : BackgroundService
 {

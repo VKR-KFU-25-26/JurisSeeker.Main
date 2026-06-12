@@ -1,12 +1,14 @@
 ﻿using JurisSeeker.Application.Interfaces;
 using JurisSeeker.Domain.Common.Enums;
-using JurisSeeker.Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace JurisSeeker.Application.Features.SaveFromMlService;
 
+/// <summary>
+/// Команда для сохранения результата классификации
+/// </summary>
 public class SaveFromMlServiceCommandHandler : IRequestHandler<SaveResultFromMlServiceCommand>
 {
     private readonly IDbContext _context;
@@ -27,7 +29,6 @@ public class SaveFromMlServiceCommandHandler : IRequestHandler<SaveResultFromMlS
             if (!Guid.TryParse(message.Id, out var caseId))
                 throw new ArgumentNullException();
     
-            // Обновляем Outcome
             await _context.CourtCases
                 .Where(x => x.Id == caseId)
                 .ExecuteUpdateAsync(setters => setters

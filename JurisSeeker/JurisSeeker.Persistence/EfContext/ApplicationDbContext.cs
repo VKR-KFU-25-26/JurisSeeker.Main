@@ -58,14 +58,13 @@ public class ApplicationDbContext : DbContext, IDbContext
         modelBuilder.Entity<TotalCasesStats>(entity =>
         {
             entity.ToView("TotalCasesStats");
-            entity.HasNoKey(); // У view нет первичного ключа
+            entity.HasNoKey(); 
             entity.Property(e => e.TotalCases).HasColumnName("TotalCases");
             entity.Property(e => e.TotalCasesWithDecision).HasColumnName("TotalCasesWithDecision");
             entity.Property(e => e.DecisionPercentage).HasColumnName("DecisionPercentage");
             entity.Property(e => e.CalculatedAt).HasColumnName("CalculatedAt");
         });
     
-        // CasesByRegionStats
         modelBuilder.Entity<CasesByRegionStats>(entity =>
         {
             entity.ToView("CasesByRegionStats");
@@ -77,7 +76,6 @@ public class ApplicationDbContext : DbContext, IDbContext
             entity.Property(e => e.CalculatedAt).HasColumnName("CalculatedAt");
         });
     
-        // DecisionStats
         modelBuilder.Entity<DecisionStats>(entity =>
         {
             entity.ToView("DecisionStats");
@@ -90,7 +88,6 @@ public class ApplicationDbContext : DbContext, IDbContext
             entity.Property(e => e.CalculatedAt).HasColumnName("CalculatedAt");
         });
     
-        // OutcomeStats
         modelBuilder.Entity<OutcomeStats>(entity =>
         {
             entity.ToView("OutcomeStats");

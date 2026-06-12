@@ -12,6 +12,9 @@ using Microsoft.Extensions.Options;
 
 namespace JurisSeeker.Kafka.KafkaMessaging.Consumers;
 
+/// <summary>
+/// Консьюмер, принимающий из парсера
+/// </summary>
 public class KafkaCourtCaseConsumer : BackgroundService
 {
     private readonly ILogger<KafkaCourtCaseConsumer> _logger;

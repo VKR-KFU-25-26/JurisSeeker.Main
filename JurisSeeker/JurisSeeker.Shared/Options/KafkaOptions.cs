@@ -1,5 +1,8 @@
 ﻿namespace JurisSeeker.Shared.Options;
 
+/// <summary>
+/// Настройка кафки
+/// </summary>
 public class KafkaOptions
 {
     public string BootstrapServers { get; set; } = "kafka:29092";

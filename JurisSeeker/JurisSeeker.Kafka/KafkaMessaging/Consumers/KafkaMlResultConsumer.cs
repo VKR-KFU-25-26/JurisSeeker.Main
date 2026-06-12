@@ -11,6 +11,9 @@ using Microsoft.Extensions.Options;
 
 namespace JurisSeeker.Kafka.KafkaMessaging.Consumers;
 
+/// <summary>
+/// Консьюмер, принимающий из ml сервиса
+/// </summary>
 public class KafkaMlResultConsumer : BackgroundService
 {
     private readonly ILogger<KafkaCourtCaseConsumer> _logger;

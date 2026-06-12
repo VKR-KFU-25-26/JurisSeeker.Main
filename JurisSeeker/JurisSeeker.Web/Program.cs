@@ -10,7 +10,6 @@ Console.InputEncoding = Encoding.UTF8;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -20,7 +19,6 @@ builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddPersistence(builder.Configuration);
 builder.Services.AddKafka(builder.Configuration);
 
-// Add background service
 //builder.Services.AddHostedService<ApplicationLifecycleService>();
 
 builder.Services.AddCors(options =>
@@ -43,7 +41,6 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-// Database migrations
 using var scoped = app.Services.CreateScope();
 var migrator = scoped.ServiceProvider.GetRequiredService<Migrator>();
 await migrator.MigrateAsync();
@@ -54,7 +51,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-// Request logging middleware
 app.Use(async (context, next) =>
 {
     var logger = context.RequestServices.GetRequiredService<ILogger<Program>>();
@@ -66,7 +62,6 @@ app.Use(async (context, next) =>
 app.UseRouting();
 app.UseCors("AllowFrontend"); 
 
-// API endpoints
 app.MapGet("/", () => "JurisSeeker API is running!");
 app.MapGet("/health", () => new { status = "Healthy", time = DateTime.UtcNow });
 app.MapGet("/api/status", () => new { 
@@ -77,13 +72,9 @@ app.MapGet("/api/status", () => new {
 });
 app.MapGet("/api/version", () => new { version = "1.0.0", environment = app.Environment.EnvironmentName });
 
-// app.UseAuthentication();
-// app.UseAuthorization();
-
 app.MapControllers();
 app.MapGraphQL(); 
 
-// Startup log
 app.Logger.LogInformation("=== JurisSeeker Application Started ===");
 app.Logger.LogInformation("Health check: http://localhost:5233/health");
 app.Logger.LogInformation("GraphQL: http://localhost:5233/graphql");

@@ -53,7 +53,7 @@ public class KafkaTopicService : IKafkaTopicService
                 ReplicationFactor = replicationFactor,
                 Configs = new Dictionary<string, string>
                 {
-                    ["retention.ms"] = "604800000" // 7 дней retention по умолчанию
+                    ["retention.ms"] = "604800000" // 7 дней 
                 }
             };
 
