@@ -52,9 +52,9 @@ if (app.Environment.IsDevelopment())
 app.Use(async (context, next) =>
 {
     var logger = context.RequestServices.GetRequiredService<ILogger<Program>>();
-    logger.LogInformation("📨 Request: {Method} {Path}", context.Request.Method, context.Request.Path);
+    logger.LogInformation("Request: {Method} {Path}", context.Request.Method, context.Request.Path);
     await next();
-    logger.LogInformation("📬 Response: {StatusCode} for {Path}", context.Response.StatusCode, context.Request.Path);
+    logger.LogInformation("Response: {StatusCode} for {Path}", context.Response.StatusCode, context.Request.Path);
 });
 
 app.UseRouting();
