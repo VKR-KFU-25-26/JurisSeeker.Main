@@ -20,7 +20,6 @@ public static class Entry
         services
             .AddGraphQLServer()
             .AddQueryType(m => m.Name(OperationTypeNames.Query))
-            //.AddMutationType(m => m.Name(OperationTypeNames.Mutation))
             .AddTypeExtension<CourtCaseQuery>()
             .AddTypeExtension<StatisticQuery>()
             .AddProjections()

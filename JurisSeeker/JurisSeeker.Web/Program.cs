@@ -19,8 +19,6 @@ builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddPersistence(builder.Configuration);
 builder.Services.AddKafka(builder.Configuration);
 
-//builder.Services.AddHostedService<ApplicationLifecycleService>();
-
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
@@ -74,12 +72,5 @@ app.MapGet("/api/version", () => new { version = "1.0.0", environment = app.Envi
 
 app.MapControllers();
 app.MapGraphQL(); 
-
-app.Logger.LogInformation("=== JurisSeeker Application Started ===");
-app.Logger.LogInformation("Health check: http://localhost:5233/health");
-app.Logger.LogInformation("GraphQL: http://localhost:5233/graphql");
-app.Logger.LogInformation("Swagger: http://localhost:5233/swagger");
-app.Logger.LogInformation("Frontend: http://localhost:3000");
-app.Logger.LogInformation("Application is ready and waiting for requests...");
 
 app.Run();
